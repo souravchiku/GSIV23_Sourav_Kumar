@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 //import {AiOutlineSearch} from 'react-icons'
 import "./Header.scss";
 
@@ -19,7 +20,9 @@ const Header = () => {
         <AiOutlineSearch className="search_icon" />
       </div>
       <div className="home">
-        <AiFillHome className="home_icon" />
+        <Link to="/">
+          <AiFillHome className="home_icon" />
+        </Link>
       </div>
     </div>
   );

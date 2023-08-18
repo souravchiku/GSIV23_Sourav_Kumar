@@ -5,7 +5,6 @@ import {
   Route,
   Switch
 } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import MovieDetail from "./components/MovieDetail/MovieDetail";
@@ -19,7 +18,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" exact element={<Home />} />
-          <Route path="/movie/:imdbID" element={<MovieDetail />} />
+          <Route path="/details" element={<MovieDetail />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>

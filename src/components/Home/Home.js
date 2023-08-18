@@ -23,11 +23,10 @@ const Home = () => {
         });
     };
     fetchMovies();
-  }, []);
+  });
 
   return (
     <div>
-      Home
       <MovieListing />
     </div>
   );
