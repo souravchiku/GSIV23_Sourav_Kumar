@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   movies: [],
   searchText: "",
-  shows: {},
+  isDetails: false,
   selectMovieOrShow: {}
 };
 
@@ -16,9 +16,12 @@ const movieSlice = createSlice({
     },
     addSearchText: (state, { payload }) => {
       state.searchText = payload;
+    },
+    setDetails: (state, { payload }) => {
+      state.isDetails = payload;
     }
   }
 });
 
-export const { addMovies, addSearchText } = movieSlice.actions;
+export const { addMovies, addSearchText, setDetails } = movieSlice.actions;
 export default movieSlice.reducer;
