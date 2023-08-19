@@ -62,7 +62,7 @@ const MovieDetail = () => {
                 {movieDetails.runtime} min
               </span>
               <span>
-                Year {<MdDateRange className="icon" />} :{" "}
+                Release Date {<MdDateRange className="icon" />} :{" "}
                 {movieDetails.release_date}
               </span>
             </div>
