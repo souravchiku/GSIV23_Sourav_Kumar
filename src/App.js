@@ -18,7 +18,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" exact element={<Home />} />
-          <Route path="/details" element={<MovieDetail />} />
+          <Route path="/details/:id" element={<MovieDetail />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>

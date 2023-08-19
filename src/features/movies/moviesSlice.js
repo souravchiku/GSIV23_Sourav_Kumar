@@ -4,7 +4,7 @@ const initialState = {
   movies: [],
   searchText: "",
   isDetails: false,
-  selectMovieOrShow: {}
+  movieDetails: {}
 };
 
 const movieSlice = createSlice({
@@ -19,9 +19,17 @@ const movieSlice = createSlice({
     },
     setDetails: (state, { payload }) => {
       state.isDetails = payload;
+    },
+    setMovieDetails: (state, { payload }) => {
+      state.movieDetails = payload;
     }
   }
 });
 
-export const { addMovies, addSearchText, setDetails } = movieSlice.actions;
+export const {
+  addMovies,
+  addSearchText,
+  setDetails,
+  setMovieDetails
+} = movieSlice.actions;
 export default movieSlice.reducer;
