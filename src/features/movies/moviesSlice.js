@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   movies: [],
+  searchText: "",
   shows: {},
   selectMovieOrShow: {}
 };
@@ -12,9 +13,12 @@ const movieSlice = createSlice({
   reducers: {
     addMovies: (state, { payload }) => {
       state.movies = payload;
+    },
+    addSearchText: (state, { payload }) => {
+      state.searchText = payload;
     }
   }
 });
 
-export const { addMovies } = movieSlice.actions;
+export const { addMovies, addSearchText } = movieSlice.actions;
 export default movieSlice.reducer;
