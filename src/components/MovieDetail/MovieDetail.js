@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import "./MovieDetail.scss";
+import { AiFillStar, AiFillLike } from "react-icons/ai";
+import { MdMovieCreation, MdDateRange } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,27 +45,33 @@ const MovieDetail = () => {
             />
           </div>
           <div className="section-right">
-            <div className="movie-title">{movieDetails.title}</div>
+            <div className="movie-title">
+              {movieDetails.title}( {movieDetails.tagline} )
+            </div>
             <div className="movie-rating">
               <span>
-                IMDB Rating <i></i> : {movieDetails.vote_average}
+                IMDB Rating {<AiFillStar className="icon" />} :{" "}
+                {movieDetails.vote_average}
               </span>
               <span>
-                IMDB Votes <i></i> :{movieDetails.vote_count}
+                IMDB Votes {<AiFillLike className="icon" />} :{" "}
+                {movieDetails.vote_count}
               </span>
               <span>
-                Runtime <i></i> : {movieDetails.runtime} min
+                Runtime {<MdMovieCreation className="icon" />} :{" "}
+                {movieDetails.runtime} min
               </span>
               <span>
-                Year <i></i> : {movieDetails.release_date}
+                Year {<MdDateRange className="icon" />} :{" "}
+                {movieDetails.release_date}
               </span>
             </div>
-            <div className="movie-plot">{movieDetails.overview}</div>
-            <div className="movie-info">
+            <div className="movie-plot">
               <div>
-                <span>Languages</span>
-                <span>{movieDetails.original_languag}</span>
+                {" "}
+                <h4>Overview :</h4>
               </div>
+              {movieDetails.overview}
             </div>
           </div>
         </>
