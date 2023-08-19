@@ -6,14 +6,12 @@ import "./MovieListing.scss";
 const MovieListing = () => {
   const movieLists = useSelector((state) => state.movies.movies);
 
-  const handleMovieDetail = (id) => {
-    console.log(id);
-  };
+  console.log(movieLists);
 
   return (
     <div className="movie_listing">
-      {movieLists.results &&
-        movieLists.results.map((item) => {
+      {movieLists.length > 0 &&
+        movieLists.map((item) => {
           return (
             <MovieCard
               title={item.title}

@@ -26,8 +26,8 @@ const Home = () => {
     moveApi
       .get(`movie/upcoming?language=en-US&page=${page}`, config)
       .then((res) => {
-        //console.log(res.data)
-        dispatch(addMovies(res.data));
+        console.log(res.data.results);
+        dispatch(addMovies(res.data.results));
         setIsloading(false);
       })
       .catch((err) => {
@@ -41,7 +41,7 @@ const Home = () => {
       .get(url, config)
       .then((res) => {
         //console.log(res.data)
-        dispatch(addMovies(res.data));
+        dispatch(addMovies(res.data.results));
         setIsloading(false);
       })
       .catch((err) => {
@@ -59,7 +59,7 @@ const Home = () => {
         .then((res) => {
           //console.log(res.data)
           let dataTostore = movies;
-          dataTostore = [...dataTostore, res.data];
+          dataTostore = dataTostore.concat(res.data.results);
           dispatch(addMovies(dataTostore));
           setIsloading(false);
         })
