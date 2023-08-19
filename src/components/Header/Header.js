@@ -11,7 +11,10 @@ const Header = () => {
   const [searchText, setSearchText] = useState();
   const isDetails = useSelector((state) => state.movies.isDetails);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const routeToHome = () => {
+    navigate("/");
+  };
   const handleSearchText = (val) => {
     setSearchText(val);
     dispatch(addSearchText(val));
@@ -19,7 +22,9 @@ const Header = () => {
   return (
     <div className="mainHeader">
       {isDetails ? (
-        <h3> Movie Detials </h3>
+        <div className="movie_detail" onClick={routeToHome}>
+          <h3> Movie Detials </h3>
+        </div>
       ) : (
         <div className="headerSearch">
           <input
@@ -29,10 +34,8 @@ const Header = () => {
           <AiOutlineSearch className="search_icon" />
         </div>
       )}
-      <div className="home">
-        <Link to="/">
-          <AiFillHome className="home_icon" />
-        </Link>
+      <div className="home" onClick={routeToHome}>
+        <AiFillHome className="home_icon" />
       </div>
     </div>
   );
