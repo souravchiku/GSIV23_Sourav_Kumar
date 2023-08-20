@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import movieApiKey from "../../common/apis/movieApiKey";
 import moveApi from "../../common/apis/movieApi";
 import { useDispatch } from "react-redux";
-import { addMovies, setDetails } from "../../features/movies/moviesSlice";
+import {
+  addMovies,
+  setDetails,
+  setLoading,
+  setPage
+} from "../../features/movies/moviesSlice";
 import MovieListing from "../MovieListing/MovieListing";
 import { useSelector } from "react-redux";
 
@@ -13,36 +18,34 @@ const Home = () => {
   const dispatch = useDispatch();
   const searchText = useSelector((state) => state.movies.searchText);
   const movies = useSelector((state) => state.movies.movies);
-  const [isLoading, setIsloading] = useState(false);
-  const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
-  useEffect(() => {
-    dispatch(setDetails(false));
-    fetchMovies();
-  }, []);
+  const isLoading = useSelector((state) => state.movies.loading);
+  const page = useSelector((state) => state.movies.page);
 
   const fetchMovies = () => {
-    setIsloading(true);
+    dispatch(setLoading(true));
     moveApi
       .get(`movie/upcoming?language=en-US&page=${page}`, config)
       .then((res) => {
-        console.log(res.data.results);
         dispatch(addMovies(res.data.results));
-        setIsloading(false);
+        dispatch(setDetails(false));
+        dispatch(setLoading(false));
       })
       .catch((err) => {
         console.log(err);
       });
   };
   const searchMovie = (movieName) => {
-    setIsloading(true);
-    let url = `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=f51eae6309f44b6fbdca6a74dade13b0`;
+    dispatch(setLoading(true));
+    let url =
+      movieName == ""
+        ? `movie/upcoming?language=en-US&page=1`
+        : `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=f51eae6309f44b6fbdca6a74dade13b0`;
     moveApi
       .get(url, config)
       .then((res) => {
         //console.log(res.data)
         dispatch(addMovies(res.data.results));
-        setIsloading(false);
+        dispatch(setLoading(false));
       })
       .catch((err) => {
         console.log(err);
@@ -53,7 +56,7 @@ const Home = () => {
       window.innerHeight + window.scrollY >=
       document.body.offsetHeight - 10
     ) {
-      setPage((prev) => prev + 1);
+      dispatch(setPage(page + 1));
       moveApi
         .get(`movie/upcoming?language=en-US&page=${page + 1}`, config)
         .then((res) => {
@@ -61,7 +64,7 @@ const Home = () => {
           let dataTostore = movies;
           dataTostore = dataTostore.concat(res.data.results);
           dispatch(addMovies(dataTostore));
-          setIsloading(false);
+          dispatch(setLoading(false));
         })
         .catch((err) => {
           console.log(err);
@@ -69,14 +72,30 @@ const Home = () => {
     }
   };
   useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isLoading]);
+  }, [page]);
+
   useEffect(() => {
-    searchText == "" ? fetchMovies() : searchMovie(searchText);
+    searchMovie(searchText);
   }, [searchText]);
 
-  return <>{isLoading ? <p> loading</p> : <MovieListing />}</>;
+  return (
+    <>
+      {isLoading ? (
+        <div className="loading">
+          <p>Please wait</p>
+          <p> Loading..</p>
+        </div>
+      ) : (
+        <MovieListing />
+      )}
+    </>
+  );
 };
 
 export default Home;

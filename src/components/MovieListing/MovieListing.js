@@ -10,7 +10,8 @@ const MovieListing = () => {
 
   return (
     <div className="movie_listing">
-      {movieLists.length > 0 &&
+      {movieLists &&
+        movieLists.length > 0 &&
         movieLists.map((item) => {
           return (
             <MovieCard

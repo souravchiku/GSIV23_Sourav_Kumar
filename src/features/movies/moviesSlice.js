@@ -4,7 +4,9 @@ const initialState = {
   movies: [],
   searchText: "",
   isDetails: false,
-  movieDetails: {}
+  movieDetails: {},
+  loading: false,
+  page: 1
 };
 
 const movieSlice = createSlice({
@@ -22,6 +24,12 @@ const movieSlice = createSlice({
     },
     setMovieDetails: (state, { payload }) => {
       state.movieDetails = payload;
+    },
+    setLoading: (state, { payload }) => {
+      state.loading = payload;
+    },
+    setPage: (state, { payload }) => {
+      state.page = payload;
     }
   }
 });
@@ -30,6 +38,8 @@ export const {
   addMovies,
   addSearchText,
   setDetails,
-  setMovieDetails
+  setMovieDetails,
+  setLoading,
+  setPage
 } = movieSlice.actions;
 export default movieSlice.reducer;
