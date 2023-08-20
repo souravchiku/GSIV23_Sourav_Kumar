@@ -1,6 +1,3 @@
-.movie_card{
-  font-size: 10px;
-}
 
 .movie_card{
 //display: flex;
@@ -22,8 +19,29 @@ img{
   height:50%;
   width: 100%;
 }
+.card-top{
+  width: 100%;
+  height: 100%;
+}
+.card-bottom{
+  display: flex;
+  flex-direction: column;
+}
 .movie_title{
   font-size: 10px;
-  display: inline-block;
+  display: flex;
+  margin: 3px 3px;
+  .rating{
+    margin-left: auto;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+.movie_description{
+  text-align: left;
+  line-height: 1.1rem;
+  font-size: 8px;
+  margin:4px;
 }
 }

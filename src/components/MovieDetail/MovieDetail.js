@@ -31,7 +31,7 @@ const MovieDetail = () => {
       dispatch(setMovieDetails({}));
     };
   }, [id]);
-  console.log(movieDetails);
+  console.log(location.state);
   return (
     <div className="movie-section">
       {Object.keys(movieDetails).length === 0 ? (
@@ -68,10 +68,9 @@ const MovieDetail = () => {
             </div>
             <div className="movie-plot">
               <div>
-                {" "}
                 <h4>Overview :</h4>
+                {movieDetails.overview}
               </div>
-              {movieDetails.overview}
             </div>
           </div>
         </>
