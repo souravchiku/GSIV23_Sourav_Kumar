@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import movieApiKey from "../../common/apis/movieApiKey";
 import moveApi from "../../common/apis/movieApi";
 import { useDispatch } from "react-redux";
@@ -24,7 +24,7 @@ const Home = () => {
   const fetchMovies = () => {
     dispatch(setLoading(true));
     moveApi
-      .get(`movie/upcoming?language=en-US&page=${page}`, config)
+      .get(`movie/upcoming?language=en-US&page=${page}?&api_key=${movieApiKey}`)
       .then((res) => {
         dispatch(addMovies(res.data.results));
         dispatch(setDetails(false));
@@ -38,12 +38,11 @@ const Home = () => {
     dispatch(setLoading(true));
     let url =
       movieName == ""
-        ? `movie/upcoming?language=en-US&page=1`
-        : `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=f51eae6309f44b6fbdca6a74dade13b0`;
+        ? `movie/upcoming?language=en-US&page=1?&api_key=${movieApiKey}`
+        : `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${movieApiKey}`;
     moveApi
       .get(url, config)
       .then((res) => {
-        //console.log(res.data)
         dispatch(addMovies(res.data.results));
         dispatch(setLoading(false));
       })
@@ -58,9 +57,12 @@ const Home = () => {
     ) {
       dispatch(setPage(page + 1));
       moveApi
-        .get(`movie/upcoming?language=en-US&page=${page + 1}`, config)
+        .get(
+          `movie/upcoming?language=en-US&page=${
+            page + 1
+          }&api_key=${movieApiKey}`
+        )
         .then((res) => {
-          //console.log(res.data)
           let dataTostore = movies;
           dataTostore = dataTostore.concat(res.data.results);
           dispatch(addMovies(dataTostore));

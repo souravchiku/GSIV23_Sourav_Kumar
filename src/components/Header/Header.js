@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { addSearchText } from "../../features/movies/moviesSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-//import {AiOutlineSearch} from 'react-icons'
 import "./Header.scss";
 
 const Header = () => {
-  const [searchText, setSearchText] = useState();
   const isDetails = useSelector((state) => state.movies.isDetails);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,7 +14,6 @@ const Header = () => {
     navigate("/");
   };
   const handleSearchText = (val) => {
-    setSearchText(val);
     dispatch(addSearchText(val));
   };
   return (

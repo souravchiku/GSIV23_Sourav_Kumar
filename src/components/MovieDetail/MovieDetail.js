@@ -15,9 +15,8 @@ const MovieDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const fetchMovieDetail = () => {
-    //let url = `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=f51eae6309f44b6fbdca6a74dade13b0`;
     moveApi
-      .get(`/movie/${id}?&api_key=f51eae6309f44b6fbdca6a74dade13b0`)
+      .get(`/movie/${id}?&api_key=${movieApiKey}`)
       .then((res) => {
         dispatch(setMovieDetails(res.data));
       })
