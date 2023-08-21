@@ -1,12 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import MovieCard from "../MovieCard/MovieCard";
-import { Link } from "react-router-dom";
 import "./MovieListing.scss";
 const MovieListing = () => {
   const movieLists = useSelector((state) => state.movies.movies);
-
-  console.log(movieLists);
 
   return (
     <div className="movie_listing">

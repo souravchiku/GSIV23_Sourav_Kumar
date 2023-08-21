@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <div className="mainHeader">
       {isDetails ? (
-        <div className="movie_detail" onClick={routeToHome}>
+        <div className="movie_detail">
           <h3> Movie Detials </h3>
         </div>
       ) : (

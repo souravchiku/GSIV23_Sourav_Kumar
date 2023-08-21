@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import movieApiKey from "../../common/apis/movieApiKey";
 import moveApi from "../../common/apis/movieApi";
 import { useDispatch } from "react-redux";
@@ -11,15 +11,13 @@ import {
 import MovieListing from "../MovieListing/MovieListing";
 import { useSelector } from "react-redux";
 
-const config = {
-  headers: { Authorization: "Bearer " + movieApiKey }
-};
 const Home = () => {
   const dispatch = useDispatch();
   const searchText = useSelector((state) => state.movies.searchText);
   const movies = useSelector((state) => state.movies.movies);
   const isLoading = useSelector((state) => state.movies.loading);
   const page = useSelector((state) => state.movies.page);
+  const [error, setError] = useState(false);
 
   const fetchMovies = () => {
     dispatch(setLoading(true));
@@ -31,7 +29,7 @@ const Home = () => {
         dispatch(setLoading(false));
       })
       .catch((err) => {
-        console.log(err);
+        setError(true);
       });
   };
   const searchMovie = (movieName) => {
@@ -41,13 +39,13 @@ const Home = () => {
         ? `movie/upcoming?language=en-US&page=1?&api_key=${movieApiKey}`
         : `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${movieApiKey}`;
     moveApi
-      .get(url, config)
+      .get(url)
       .then((res) => {
         dispatch(addMovies(res.data.results));
         dispatch(setLoading(false));
       })
       .catch((err) => {
-        console.log(err);
+        setError(true);
       });
   };
   const handleScroll = () => {
@@ -69,7 +67,7 @@ const Home = () => {
           dispatch(setLoading(false));
         })
         .catch((err) => {
-          console.log(err);
+          setError(true);
         });
     }
   };
@@ -93,6 +91,8 @@ const Home = () => {
           <p>Please wait</p>
           <p> Loading..</p>
         </div>
+      ) : error ? (
+        <p>Something Went wrong </p>
       ) : (
         <MovieListing />
       )}
